@@ -1,0 +1,13 @@
+Product Controller
+Get Product - Done
+Add a Product - Done 
+Get one Product - Done
+filter product - Done
+Rate Product - Done
+Add iteam to Cart - Done
+Get iteam of Cart - Done
+Remove iteams from Cart -Done
+
+UserController
+SignUp - Email, name, password , TypeofUser(cutomer, seller)-Done
+sign -(Email, Password)-Done
