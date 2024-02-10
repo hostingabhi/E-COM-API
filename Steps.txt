@@ -1,0 +1,13 @@
+Folder Structure
+Route configuration
+creating apis
+Different api methods
+Middlewares
+Route parameters
+Query parameters(product ID, userId, rating)
+Testing API using postmen
+Securing api using jwt token
+Documenting api using swagger(make a UI for client)
+CORS(cross origin request define cors policy for define who can access you application define url)
+logging(log your error massages)
+Error Handling(handle the error and reponde to the server).
