@@ -11,6 +11,7 @@ import cartRouter from "./src/features/cartiteams/cartitems.routes.js";
 import apiDocs from './swagger.json' assert{type:'json'};
 import loggerMiddleware from "./src/middlewares/logger.middleware.js";
 import { ApplicationError } from "./src/error-handler/applicationError.js";
+import {connectToMongoDB} from "./src/config/mongodb.js";
 const port = 3000;
 
 
@@ -71,4 +72,5 @@ server.use((req,res)=>{
 server.listen(port,()=>{
     console.log(`server is Working on http://localhost:${port}`);
     console.log(`http://localhost:${port}/api-docs`)
+    connectToMongoDB();
 })

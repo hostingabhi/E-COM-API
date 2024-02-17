@@ -25,3 +25,10 @@
 {"level":"info","message":"/api/products/rate?userID=2&productID=1&rating=4.5 - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/rate?userID=2&productID=1&rating=4.5 - {}","service":"request-logging"}
 {"level":"info","message":"/api/products/rate?userID=2&productID=1&rating=4.5 - {}","service":"request-logging"}
+info: /api/users/signup - {"name":"Abhishek","email":"a@a","password":"1","type":"Cutomer"} {"service":"request-logging"}
+info: /api/users/signup - {"name":"Abhishek","email":"a@a","password":"1","type":"Cutomer"} {"service":"request-logging"}
+info: /api/users/signup - {"name":"Abhishek","email":"a@a","password":"1","type":"Cutomer"} {"service":"request-logging"}
+info: /api/users/signup - {"name":"Abhishek","email":"a@a","password":"1","type":"Cutomer"} {"service":"request-logging"}
+info: /api/users/signup - {"name":"Abhishek","email":"a@a","password":"1","type":"Cutomer"} {"service":"request-logging"}
+info: /api/users/signup - {"name":"Abhishek","email":"a@a","password":"1","type":"Cutomer"} {"service":"request-logging"}
+info: /api/users/signup - {"name":"Abhishek","email":"b@a","password":"password","type":"Cutomer"} {"service":"request-logging"}

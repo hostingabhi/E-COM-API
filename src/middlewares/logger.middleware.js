@@ -23,19 +23,19 @@ import winston from 'winston';
 
 //2. Create logger using winstone library
 const logger = winston.createLogger({
-    level:'info',
-    format: winston.format.json,
-    defaultMeta:{service: 'request-logging'},
-    transports:[
-        new winston.transports.File({filename:'log.txt'})
-    ]    
+    level: 'info',
+    format: winston.format.simple(), // Use simple format which includes a transform function
+    defaultMeta: { service: 'request-logging' },
+    transports: [
+        new winston.transports.File({ filename: 'log.txt' })
+    ]
 });
 
-const loggerMiddleware = async(req, res, next)=>{
-    //1. log request body.
-    if(!req.url.includes('signin')){
-    const logData = `${req.url} - ${JSON.stringify(req.body)}`;
-    logger.info(logData)
+const loggerMiddleware = async (req, res, next) => {
+    // Log request body.
+    if (!req.url.includes('signin')) {
+        const logData = `${req.url} - ${JSON.stringify(req.body)}`;
+        logger.info(logData);
     }
     next();
 };
