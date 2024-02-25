@@ -1,61 +1,94 @@
+import { ApplicationError } from "../../error-handler/applicationError.js";
+import ProductRepository from "./product-repository.js";
 import ProductModel from "./product.model.js";
 
 
 export default class ProductController{
-    getAllProducts(req, res){
-        const products = ProductModel.getAll();
-        res.status(200).send(products);
+    
+
+    constructor(){
+        this.productRepository = new ProductRepository();
     }
 
-    addProduct(req,res){
-        const {name,desc, price,sizes} = req.body;
-        const newProduct = {
+    async getAllProducts(req,res) {
+        try{
+          const products = await this.productRepository.getAll();
+            res.status(200).send(products);
+        }catch(err){
+        console.log(err);
+        return res.status(400).send("Something went wrong");
+       }    
+    }
+
+    async addProduct(req,res){
+       try{ 
+        const {name,desc, price,sizes, category} = req.body;
+        const newProduct = new ProductModel (
             name,
             desc,
-            price:parseFloat(price),
-            sizes:sizes.split(','),
-            imageUrl: req.file.filename,
-        };
-        const createdRecord = ProductModel.add(newProduct);
-        res.status(201).send(createdRecord)   
+            parseFloat(price),
+            req.file.filename,
+            category,
+            sizes.split(',')
+        )
+        const createdProduct = await this.productRepository.add(newProduct);
+        res.status(201).send(createdProduct)
+    }catch(err){
+        console.log(err);
+    throw new ApplicationError("Something Went Wrong",500)
+    } 
     }
 
 
-    getOneProduct(req,res){
-        const id = req.params.id;
-        const product = ProductModel.get(id)
-        if(!product){
-            res.status(404).send('Product not found');
-        }else{
-            return res.status(200).send(product);
+    async getOneProduct(req,res){
+        try{
+            const id = req.params.id;
+            const product = await this.productRepository.get(id);
+            if(!product){
+                res.status(404).send('Product not found');
+            }else{
+                return res.status(200).send(product);
+            }
+        
+        }catch(err){
+            console.log(err);
+        throw new ApplicationError("Something Went Wrong",500)
         }
+
 
     }
     
-    filterProduct(req, res,next){
-        const minPrice = req.query.minPrice;
-        const maxPrice = req.query.maxPrice;
-        const category = req.query.category;
-        const result = ProductModel.filter(
-            minPrice,
-            maxPrice,
-            category
-        );
-        res.status(200).send(result);
+    async filterProduct(req, res,next){
+        try{
+        
+            const minPrice = req.query.minPrice;
+            const maxPrice = req.query.maxPrice;
+            const category = req.query.category;
+            const result = await this.productRepository.filter(
+                minPrice,
+                maxPrice,
+                category
+            );
+            res.status(200).send(result);
+        }catch(err){
+            console.log(err);
+        throw new ApplicationError("Something Went Wrong",500)
+        }
     }
 
     rateProduct(req,res,next){
         try{
-        const userID = req.query.userID;
-        const productID = req.querys.productID;
+        const userID = req.userID;
+        const productID = req.query.productID;
         const rating = req.query.rating;
         try{
-            ProductModel.rateProduct(userID,productID,rating);
+            this.productRepository.rate(userID,productID,rating);
         }catch(err){
             return res.status(400).send(err.message);
         }
         return res.status(200).send("Rating has been added");
     }catch(err){
+        console.log(err)
         console.log("Passing error to middleware");
         next(err);
     }

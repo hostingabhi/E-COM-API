@@ -1,4 +1,5 @@
 //1. Import Express
+import "./env.js";
 import express from "express";
 import swagger from 'swagger-ui-express';
 import cors from 'cors';
@@ -17,6 +18,9 @@ const port = 3000;
 
 //2. create server
 const server = express();
+
+//load all the enviornment variable.
+
 
 //CORS policy configration manually
 // server.use((req,res,next)=>{

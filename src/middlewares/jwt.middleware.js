@@ -9,17 +9,14 @@ const jwtAuth = (req, res, next)=>{
         }
     //3. check if token is valid.
         try{
-           const payload = jwt.verify(
-            token,
-            "PAWXPnEOAzxwBKEHmfJLiPO60JNHARea"
-           );
+           const payload = jwt.verify(token,process.env.JWT_SECRET);
            req.userID = payload.userID;
            console.log(payload); 
         }
         catch(err){
             //4. return error
             console.log(err);
-            return res.status(401).send('Unauthorized');
+            return res.status(401).send('Unauthorized2');
         }
 
     //5. call next middleware
