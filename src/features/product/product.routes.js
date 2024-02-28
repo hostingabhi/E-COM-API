@@ -16,6 +16,7 @@ ProductRouter.get("/",(req,res)=>{productController.getAllProducts(req,res)});
 ProductRouter.post("/",upload.single('imageUrl'),(req,res)=>{
     productController.addProduct(req,res)
 });
+ProductRouter.get("/averagePrice",(req,res,next)=>{productController.averagePrice(req,res)});
 ProductRouter.get("/:id",(req,res)=>{productController.getOneProduct(req,res)});
 
 

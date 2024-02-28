@@ -1,0 +1,13 @@
+Place Order.
+
+1.Get Cart Iteams of user, calulate the total Amount.
+2.Create a record for order.
+3. Reduce the Stock(products quantity).
+4. Clear the Cart.
+
+
+5. Deduct the payment.
+6. Inform to sellers.
+7. Inform to coureir.  
+
+(100000+150000)250000

@@ -33,9 +33,8 @@ export default class UserController{
             //2. compare password with hashed password
             const result = await bcrypt.compare(req.body.password,user.password);
             if(result){
-
                 //3.create Token.
-                const token = jwt.sign({userID: user._id, email: user.email},process.env.JWT_SECRET,{expiresIn:'1h',});
+                const token = jwt.sign({_userID:user._id},"ABHISHEKPRAJAPAT");
                 //4. Send Token.
                 return res.status(200).send(token);
             }else{

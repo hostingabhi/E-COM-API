@@ -11,3 +11,8 @@ Documenting api using swagger(make a UI for client)
 CORS(cross origin request define cors policy for define who can access you application define url)
 logging(log your error massages)
 Error Handling(handle the error and reponde to the server).
+
+
+//Step to Create mongodb ID.
+1. Counter Collection (_id:"cartItemId", value:0)
+2. while adding cart iteam, increment the counter and then use counter value as id cartitem document.

@@ -3,16 +3,18 @@ import "./env.js";
 import express from "express";
 import swagger from 'swagger-ui-express';
 import cors from 'cors';
+
 import ProductRouter from "./src/features/product/product.routes.js";
 import userRouter from "./src/features/user/user.routes.js";
-import basicAuthorizer from "./src/middlewares/basicAuth.middleware.js";
-import bodyParser from "body-parser";
 import jwtAuth from "./src/middlewares/jwt.middleware.js";
 import cartRouter from "./src/features/cartiteams/cartitems.routes.js";
 import apiDocs from './swagger.json' assert{type:'json'};
 import loggerMiddleware from "./src/middlewares/logger.middleware.js";
 import { ApplicationError } from "./src/error-handler/applicationError.js";
 import {connectToMongoDB} from "./src/config/mongodb.js";
+import basicAuthorizer from "./src/middlewares/basicAuth.middleware.js";
+import bodyParser from "body-parser";
+import orderRouter from "./src/features/order/order-routes.js";
 const port = 3000;
 
 
@@ -41,13 +43,15 @@ var corsOptions={
 server.use(cors(corsOptions));
 
 
-server.use(bodyParser.json())
+// server.use(bodyParser.json())
+server.use(express.json());
 //for all request related to product redirect to product, redirect to product routers.
 server.use("/api-docs", swagger.serve, swagger.setup(apiDocs));
 server.use(loggerMiddleware);
+server.use('/api/orders',jwtAuth,orderRouter);
 server.use("/api/products",jwtAuth, ProductRouter)
-server.use("/api/users",userRouter)
 server.use("/api/cartItems",jwtAuth ,cartRouter)
+server.use("/api/users",userRouter)
 
 //3. Efault request handler
 server.get("/",(req,res)=>{
