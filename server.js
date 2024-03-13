@@ -15,6 +15,9 @@ import {connectToMongoDB} from "./src/config/mongodb.js";
 import basicAuthorizer from "./src/middlewares/basicAuth.middleware.js";
 import bodyParser from "body-parser";
 import orderRouter from "./src/features/order/order-routes.js";
+import { connectUsingMongoose } from "./src/config/mongoose-config.js";
+import mongoose from "mongoose";
+import likeRouter from "./src/features/like/like-routes.js";
 const port = 3000;
 
 
@@ -52,6 +55,7 @@ server.use('/api/orders',jwtAuth,orderRouter);
 server.use("/api/products",jwtAuth, ProductRouter)
 server.use("/api/cartItems",jwtAuth ,cartRouter)
 server.use("/api/users",userRouter)
+server.use("/api/likes",jwtAuth,likeRouter)
 
 //3. Efault request handler
 server.get("/",(req,res)=>{
@@ -61,6 +65,9 @@ server.get("/",(req,res)=>{
 //Error handler middleware
 server.use((err, req, res, next)=>{
     console.log(err);
+    if(err instanceof mongoose.Error.ValidationError){
+        res.status(400).send(err.message);
+    }
     if(err instanceof ApplicationError){
         res.status(err.code).send(err.message);
     }
@@ -80,5 +87,6 @@ server.use((req,res)=>{
 server.listen(port,()=>{
     console.log(`server is Working on http://localhost:${port}`);
     console.log(`http://localhost:${port}/api-docs`)
-    connectToMongoDB();
+    // connectToMongoDB();
+    connectUsingMongoose();
 })

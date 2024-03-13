@@ -30,7 +30,7 @@ const createCounter = async(db)=>{
 }
 
 const createIndexes = async(db)=>{
-    await db.collection("Products").createIndex({price:1});
-    await db.collection("Products").createIndex({name:1, category:-1});
-    await db.collection("Products").createIndex({desc:"text"});
+    await db.collection("products").createIndex({price:1});
+    await db.collection("products").createIndex({name:1, category:-1});
+    await db.collection("products").createIndex({desc:"text"});
 }
